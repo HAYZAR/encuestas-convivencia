@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Seguimiento de Convivencia en el Aula — IED Los Rosales</title>
+<meta name="description" content="Registro trimestral docente de convivencia en el aula. IED Los Rosales." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --ink:#1B1712; --surface:#241E17; --surface2:#1E1912;
+  --line:#3A3226; --line2:#4C4230;
+  --text:#F3EEE5; --muted:#B8AC98; --faint:#847A67;
+  --amber:#E0A458; --amber-deep:#C1813A; --clay:#C8735A; --sage:#8FAE8B;
+  --danger:#E2735E; --ok:#8FAE8B;
+  --accent:var(--amber); --accent-soft:rgba(224,164,88,.15); --accent-line:rgba(224,164,88,.4);
+  --r:14px; --maxw:740px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--text); font-family:"Inter",system-ui,sans-serif; line-height:1.56;
+  -webkit-font-smoothing:antialiased;
+  background:
+    radial-gradient(1000px 480px at 82% -8%, rgba(224,164,88,.10), transparent 58%),
+    radial-gradient(800px 420px at 6% 12%, rgba(143,174,139,.07), transparent 55%),
+    var(--ink);
+}
+.wrap{max-width:var(--maxw); margin:0 auto; padding:26px 20px 90px}
+a{color:var(--accent)}
+
+.topbar{display:flex; align-items:center; gap:12px; max-width:var(--maxw); margin:0 auto; padding:18px 20px 2px}
+.crest{width:36px;height:36px;border-radius:9px;display:grid;place-items:center;
+  background:linear-gradient(150deg,#3A2E1E,#241C12); box-shadow:0 0 0 1px var(--line) inset; font-family:"Space Grotesk";font-weight:700;color:#f7ecd9;font-size:15px}
+.brand{font-family:"Space Grotesk";font-weight:600;font-size:15px}
+.brand small{display:block;color:var(--faint);font-weight:400;font-size:11.5px;font-family:"Inter"}
+
+.eyebrow{font-family:"Space Mono",monospace; font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); margin:0 0 10px}
+.hero h1{font-family:"Space Grotesk"; font-weight:700; font-size:clamp(29px,5.8vw,42px); line-height:1.08; margin:6px 0 16px; letter-spacing:-.01em}
+.hero h1 em{font-style:normal; color:var(--amber)}
+.lead{color:var(--muted); font-size:15.5px; max-width:60ch; margin:0 0 8px}
+.chip{display:inline-flex;align-items:center;gap:8px;font-family:"Space Mono",monospace;font-size:11.5px;letter-spacing:.05em;
+  color:var(--muted); background:var(--surface2); border:1px solid var(--line); padding:7px 12px; border-radius:999px; margin-top:16px}
+.chip .dot{width:7px;height:7px;border-radius:50%;background:var(--sage)}
+
+.legal{margin-top:26px;border:1px solid var(--line);border-left:3px solid var(--amber);background:var(--surface2);
+  border-radius:12px;padding:15px 17px;color:var(--muted);font-size:13px}
+.legal b{color:var(--text)}
+.legal + .legal{margin-top:10px}
+.start{margin-top:26px;width:100%}
+.foot{margin-top:30px;color:var(--faint);font-size:12px}
+
+.form-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:4px}
+.back{background:none;border:1px solid var(--line);color:var(--muted);border-radius:9px;padding:8px 12px;font:inherit;font-size:12.5px;cursor:pointer;display:inline-flex;align-items:center;gap:7px}
+.back:hover{color:var(--text);border-color:var(--line2)}
+.back svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2}
+.tag{font-family:"Space Mono";font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent-line);background:var(--accent-soft);padding:6px 11px;border-radius:999px}
+
+.form-title{font-family:"Space Grotesk";font-weight:700;font-size:clamp(22px,4.4vw,29px);margin:14px 0 2px;letter-spacing:-.01em}
+.form-sub{color:var(--muted);font-size:13.5px;margin:0 0 20px}
+
+.progress{display:flex;gap:6px;margin:0 0 8px}
+.progress .seg{flex:1;height:5px;border-radius:99px;background:var(--line);overflow:hidden}
+.progress .seg .fill{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--amber),var(--clay));transition:width .35s ease}
+.progress .seg.active .fill,.progress .seg.done .fill{width:100%}
+.step-label{font-family:"Space Mono";font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);margin:0 0 18px}
+.step-label b{color:var(--accent)}
+
+.step{animation:rise .35s ease both}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.q{background:linear-gradient(180deg,var(--surface),var(--surface2));border:1px solid var(--line);border-radius:var(--r);padding:18px 18px 8px;margin-bottom:14px}
+.q > .qh{font-family:"Space Grotesk";font-weight:600;font-size:16px;margin:0 0 3px}
+.q .req{color:var(--accent);font-weight:700}
+.q .help{color:var(--faint);font-size:12.5px;margin:0 0 12px}
+.q.err{border-color:var(--danger)}
+.q.err .qh{color:#f2a898}
+
+.opts{display:grid;gap:9px;margin-top:12px}
+.opt{display:flex;align-items:flex-start;gap:11px;border:1px solid var(--line);background:var(--ink);border-radius:11px;padding:12px 14px;cursor:pointer;transition:.14s;font-size:14.5px;position:relative}
+.opt:hover{border-color:var(--line2);background:#241d13}
+.opt .mark{flex:none;width:20px;height:20px;border-radius:6px;border:1.6px solid var(--line2);display:grid;place-items:center;margin-top:1px;transition:.14s}
+.opt[data-single] .mark{border-radius:50%}
+.opt .mark svg{width:12px;height:12px;stroke:#211a10;fill:none;stroke-width:3;opacity:0}
+.opt.on{border-color:var(--accent-line);background:var(--accent-soft)}
+.opt.on .mark{background:var(--accent);border-color:var(--accent)}
+.opt.on .mark svg{opacity:1}
+.opt.severe.on{border-color:rgba(226,115,94,.55);background:rgba(226,115,94,.13)}
+.opt.severe.on .mark{background:var(--danger);border-color:var(--danger)}
+.opt .severe-tag{margin-left:auto;font-family:"Space Mono";font-size:9.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--danger);border:1px solid rgba(226,115,94,.4);border-radius:999px;padding:2px 7px;flex:none}
+
+.alert-route{border:1px solid rgba(226,115,94,.4);border-left:3px solid var(--danger);background:rgba(226,115,94,.09);
+  border-radius:12px;padding:14px 16px;margin:4px 0 16px;font-size:13px;color:var(--text);animation:rise .25s ease both}
+.alert-route b{color:#f2a898}
+
+textarea,input[type=text]{width:100%;background:var(--ink);border:1px solid var(--line);border-radius:11px;color:var(--text);
+  font:inherit;font-size:14.5px;padding:12px 14px;resize:vertical;margin-top:10px}
+textarea:focus,input[type=text]:focus{outline:none;border-color:var(--accent-line);box-shadow:0 0 0 3px var(--accent-soft)}
+textarea::placeholder,input::placeholder{color:var(--faint)}
+
+.nav{display:flex;gap:12px;margin-top:22px}
+.btn{font:inherit;font-weight:600;font-size:14.5px;border-radius:11px;padding:13px 20px;cursor:pointer;border:1px solid transparent;transition:.15s;display:inline-flex;align-items:center;gap:8px;justify-content:center}
+.btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2}
+.btn.prev{background:transparent;border-color:var(--line);color:var(--muted)}
+.btn.prev:hover{color:var(--text);border-color:var(--line2)}
+.btn.next{background:var(--amber);color:#221a0f;flex:1;box-shadow:0 10px 24px -14px var(--amber)}
+.btn.next:hover{filter:brightness(1.05)}
+.btn.next:disabled{opacity:.6;cursor:progress}
+.errline{color:var(--danger);font-size:13px;margin-top:12px;display:none}
+.errline.show{display:block}
+
+.done{text-align:center;padding:42px 10px;animation:rise .4s ease both}
+.done .seal{width:78px;height:78px;border-radius:50%;margin:0 auto 22px;display:grid;place-items:center;background:var(--accent-soft);border:1px solid var(--accent-line)}
+.done .seal svg{width:36px;height:36px;stroke:var(--accent);fill:none;stroke-width:2.4}
+.done h2{font-family:"Space Grotesk";font-size:26px;margin:0 0 8px}
+.done p{color:var(--muted);max-width:46ch;margin:0 auto 24px}
+
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="crest">LR</div>
+  <div class="brand">IED Los Rosales<small>Seguimiento de Convivencia · Docentes</small></div>
+</div>
+
+<main class="wrap" id="app"></main>
+
+<script>
+/* ============================================================
+   CONFIG — mismo backend de las demás encuestas. Como el script
+   crea una pestaña por "tipo", esto caerá solo en una pestaña
+   nueva llamada "Convivencia" dentro de tu misma hoja.
+   ============================================================ */
+const CONFIG = {
+  SCRIPT_URL: "https://script.google.com/macros/s/AKfycbxZv9O2ZT4TcRk-xqgDxvcKtN7OAQ6BpNvOlisN14b44TWqYS65s1YkbDzxT87s0VxT/exec",
+  TIPO: "convivencia"
+};
+
+const SEVERE = new Set(["Agresiones físicas.", "Agresiones verbales."]);
+
+/* ---------- estructura ---------- */
+const SECTIONS = [
+  { id:"datos", parte:"Datos del reporte", qs:[
+    {id:"periodo",label:"Periodo",type:"single",required:true,q:"¿A qué periodo corresponde este reporte?",opts:["2026 · Trimestre 1","2026 · Trimestre 2","2026 · Trimestre 3"]},
+    {id:"jornada",label:"Jornada",type:"single",required:true,q:"¿En qué jornada labora?",opts:["Mañana","Tarde","Ambas jornadas"]},
+    {id:"nivel",label:"Nivel(es)",type:"multi",required:true,q:"¿En qué niveles imparte clases?",help:"Marque todos los que apliquen.",opts:["Preescolar","Primaria (1º–3º)","Primaria (4º–5º)","Secundaria (6º–9º)","Media (10º–11º)"]},
+    {id:"area",label:"Área o asignatura",type:"text",required:true,q:"Área o asignatura que enseña",placeholder:"Ej. Matemáticas, Ciencias Naturales…"},
+    {id:"grado_grupo",label:"Grado y grupo del curso reportado",type:"text",required:true,q:"¿Sobre qué grado y grupo específico es este reporte?",help:"Si diligencia varios reportes (uno por curso), indique aquí a cuál corresponde este.",placeholder:"Ej. 9º-2"},
+  ]},
+
+  { id:"gate", parte:"Situaciones de convivencia", qs:[
+    {id:"hubo_situaciones",label:"¿Hubo situaciones?",type:"single",required:true,q:"Durante este trimestre, en este curso, ¿se presentaron situaciones de convivencia dentro del aula?",opts:["Sí","No"]},
+  ]},
+
+  { id:"detalle", parte:"Detalle de las situaciones", condition:(a)=>a.hubo_situaciones==="Sí", qs:[
+    {id:"situaciones",label:"Situaciones presentadas",type:"multi",required:true,q:"¿Cuáles fueron las situaciones más frecuentes?",help:"Marque las que correspondan. Las marcadas en rojo activan la Ruta de Atención Integral (Ley 1620 de 2013).",opts:["Interrupciones constantes de la clase.","Irrespeto al docente.","Irrespeto entre compañeros.","Burlas o apodos ofensivos.","Agresiones verbales.","Agresiones físicas.","Daño de materiales o pertenencias.","Uso inadecuado del celular u otros dispositivos.","Incumplimiento de normas del aula."]},
+    {id:"situacion_otra",label:"Otra situación",type:"text",required:false,q:"¿Otra situación no listada?",help:"Opcional.",placeholder:"Descríbala brevemente…"},
+    {id:"frecuencia",label:"Frecuencia",type:"single",required:true,q:"¿Con qué frecuencia se presentaron estas situaciones?",help:"Si marcó varias, considere la que ocurre con mayor regularidad.",opts:["Rara vez","Algunas veces","Frecuentemente","Muy frecuentemente"]},
+    {id:"impacto",label:"Impacto en las clases",type:"single",required:true,q:"¿Las situaciones afectaron el desarrollo de las clases?",opts:["Nunca","Poco","Moderadamente","Mucho","Siempre"]},
+    {id:"estrategias",label:"Estrategias implementadas",type:"multi",required:true,q:"¿Qué estrategias implementó para mejorar la convivencia?",help:"Puede marcar varias.",opts:["Diálogo con los estudiantes.","Acuerdos de aula.","Llamado de atención.","Comunicación con padres de familia.","Remisión a Coordinación.","Remisión a Orientación Escolar.","Actividades de reflexión."]},
+    {id:"estrategia_otra",label:"Otra estrategia",type:"text",required:false,q:"¿Otra estrategia no listada?",help:"Opcional.",placeholder:"Descríbala brevemente…"},
+    {id:"resultado",label:"Resultado de las estrategias",type:"single",required:true,q:"¿Considera que las estrategias implementadas dieron resultado?",opts:["Sí","Parcialmente","No"]},
+  ]},
+
+  { id:"cierre", parte:"Apoyo y observaciones", qs:[
+    {id:"apoyo",label:"Apoyo necesario",type:"open",required:true,q:"¿Qué apoyo considera necesario para fortalecer la convivencia en el aula?",placeholder:"Escriba aquí…"},
+    {id:"observaciones",label:"Observaciones o recomendaciones",type:"open",required:false,q:"Observaciones o recomendaciones adicionales",help:"Opcional.",placeholder:"Escriba aquí…"},
+  ]},
+];
+
+/* ============================================================ */
+const app = document.getElementById("app");
+let state = { path:[0], idx:0, answers:{} };
+
+const ICONS = {
+  arrow:'<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
+  back:'<svg viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>',
+  check:'<svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>',
+  send:'<svg viewBox="0 0 24 24"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>'
+};
+
+/* Calcula la secuencia visible de secciones según las respuestas actuales. */
+function visiblePath(){
+  return SECTIONS.map((s,i)=>i).filter(i=>{
+    const sec = SECTIONS[i];
+    return !sec.condition || sec.condition(state.answers);
+  });
+}
+
+function renderLanding(){
+  app.innerHTML = `
+    <section class="hero">
+      <p class="eyebrow">Registro trimestral · Docentes</p>
+      <h1>Seguimiento de <em>convivencia</em> en el aula.</h1>
+      <p class="lead">Este formulario permite documentar, trimestre a trimestre, las situaciones de convivencia observadas en cada curso y las estrategias aplicadas. La información orienta las acciones de prevención y seguimiento de la institución.</p>
+      <span class="chip"><span class="dot"></span> Diligenciamiento docente · 3–6 minutos</span>
+
+      <div class="legal"><b>Este formulario no reemplaza el conducto regular.</b> Las situaciones de agresión física o acoso escolar deben reportarse además por la vía institucional correspondiente (Coordinación / Comité Escolar de Convivencia), conforme a la Ruta de Atención Integral de la Ley 1620 de 2013.</div>
+      <div class="legal"><b>Tratamiento de datos.</b> La información se usa con fines de seguimiento institucional y se trata conforme a la Ley 1581 de 2012 (Habeas Data).</div>
+
+      <button class="btn next start" id="start">Comenzar ${ICONS.arrow}</button>
+      <p class="foot">IED Los Rosales · Gestión Académica</p>
+    </section>`;
+  app.querySelector("#start").addEventListener("click",()=>{ state={path:visiblePath(),idx:0,answers:{}}; renderStep(); });
+}
+
+function renderStep(){
+  state.path = visiblePath();
+  if(state.idx >= state.path.length) state.idx = state.path.length-1;
+  const secIndex = state.path[state.idx];
+  const sec = SECTIONS[secIndex];
+  const total = state.path.length;
+  const isLast = state.idx === total-1;
+
+  const segs = state.path.map((_,i)=>`<div class="seg ${i<state.idx?'done':(i===state.idx?'active':'')}"><span class="fill"></span></div>`).join("");
+
+  app.innerHTML = `
+    <div class="form-head">
+      <button class="back">${ICONS.back} Inicio</button>
+      <span class="tag">Convivencia</span>
+    </div>
+    <h1 class="form-title">${sec.parte}</h1>
+    <p class="form-sub">Trimestre en curso.</p>
+    <div class="progress">${segs}</div>
+    <div class="step-label">Paso <b>${state.idx+1}</b> de ${total}</div>
+    <div class="step" id="step">
+      ${sec.qs.map(renderQ).join("")}
+    </div>
+    <div class="errline" id="errline">Por favor responde las preguntas marcadas con * antes de continuar.</div>
+    <div class="nav">
+      ${state.idx>0?`<button class="btn prev">${ICONS.back} Anterior</button>`:""}
+      <button class="btn next" id="next">${isLast?`Enviar reporte ${ICONS.send}`:`Siguiente ${ICONS.arrow}`}</button>
+    </div>`;
+
+  app.querySelector(".back").addEventListener("click",()=>{ if(confirm("¿Volver al inicio? Se perderá el reporte en curso.")){ renderLanding(); }});
+  const prev=app.querySelector(".prev"); if(prev) prev.addEventListener("click",()=>{ state.idx--; renderStep(); });
+  app.querySelector("#next").addEventListener("click",()=> isLast?submit():nextStep());
+  wireInputs(sec);
+  maybeShowRouteAlert();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function renderQ(q){
+  const a=state.answers[q.id]; let body="";
+  if(q.type==="single"||q.type==="multi"){
+    const single=q.type==="single";
+    body=`<div class="opts" data-q="${q.id}" data-type="${q.type}">`+q.opts.map(o=>{
+      const on = single ? a===o : Array.isArray(a)&&a.includes(o);
+      const severe = SEVERE.has(o);
+      return `<label class="opt ${on?'on':''} ${severe?'severe':''}" ${single?"data-single":""} data-v="${esc(o)}">
+        <span class="mark">${ICONS.check}</span><span>${o}</span>${severe?'<span class="severe-tag">Ruta 1620</span>':''}
+      </label>`;
+    }).join("")+`</div>`;
+  } else if(q.type==="text"){
+    body=`<input type="text" data-q="${q.id}" placeholder="${q.placeholder||''}" value="${a?esc(a):''}" />`;
+  } else if(q.type==="open"){
+    body=`<textarea rows="3" data-q="${q.id}" placeholder="${q.placeholder||''}">${a?esc(a):''}</textarea>`;
+  }
+  return `<div class="q" data-qid="${q.id}"><p class="qh">${q.q}${q.required?'<span class="req"> *</span>':''}</p>${q.help?`<p class="help">${q.help}</p>`:''}${body}</div>`;
+}
+
+function maybeShowRouteAlert(){
+  const existing = app.querySelector("#routeAlert"); if(existing) existing.remove();
+  const sit = state.answers.situaciones;
+  const hasSevere = Array.isArray(sit) && sit.some(s=>SEVERE.has(s));
+  if(hasSevere){
+    const box = document.createElement("div");
+    box.id="routeAlert"; box.className="alert-route";
+    box.innerHTML = `<b>Recuerda:</b> además de este reporte, activa la Ruta de Atención Integral con Coordinación o el Comité Escolar de Convivencia, conforme a la Ley 1620 de 2013.`;
+    const situBlock = app.querySelector('.q[data-qid="situaciones"]');
+    if(situBlock) situBlock.after(box);
+  }
+}
+
+function wireInputs(sec){
+  app.querySelectorAll(".opts").forEach(box=>{
+    const qid=box.dataset.q, type=box.dataset.type;
+    box.querySelectorAll(".opt").forEach(opt=>opt.addEventListener("click",()=>{
+      const v=opt.dataset.v;
+      if(type==="single"){
+        state.answers[qid]=v;
+        box.querySelectorAll(".opt").forEach(o=>o.classList.toggle("on",o===opt));
+        if(qid==="hubo_situaciones"){ /* path changes; footer will recompute on next render */ }
+      } else {
+        let arr = Array.isArray(state.answers[qid])?state.answers[qid].slice():[];
+        if(arr.includes(v)) arr=arr.filter(x=>x!==v); else arr.push(v);
+        state.answers[qid]=arr;
+        opt.classList.toggle("on", arr.includes(v));
+      }
+      clearErr(qid);
+      maybeShowRouteAlert();
+    }));
+  });
+  app.querySelectorAll("input[type=text],textarea").forEach(inp=>inp.addEventListener("input",()=>{ state.answers[inp.dataset.q]=inp.value.trim(); clearErr(inp.dataset.q); }));
+}
+
+function clearErr(qid){ const el=app.querySelector(`.q[data-qid="${qid}"]`); if(el)el.classList.remove("err"); }
+function esc(s){ return String(s).replace(/"/g,"&quot;").replace(/</g,"&lt;"); }
+
+function validate(sec){
+  let ok=true, first=null;
+  sec.qs.forEach(q=>{
+    if(!q.required) return;
+    const a=state.answers[q.id]; let filled;
+    if(q.type==="multi") filled=Array.isArray(a)&&a.length>0;
+    else filled=a!=null&&String(a).trim()!=="";
+    if(!filled){ ok=false; const el=app.querySelector(`.q[data-qid="${q.id}"]`); if(el){el.classList.add("err"); if(!first)first=el;} }
+  });
+  if(!ok){ app.querySelector("#errline").classList.add("show"); if(first)first.scrollIntoView({behavior:"smooth",block:"center"}); }
+  return ok;
+}
+function nextStep(){
+  const secIndex = state.path[state.idx]; const sec = SECTIONS[secIndex];
+  app.querySelector("#errline").classList.remove("show");
+  if(!validate(sec)) return;
+  state.idx++; renderStep();
+}
+
+function buildPayload(){
+  const fields=[];
+  SECTIONS.forEach(sec=>{
+    if(sec.condition && !sec.condition(state.answers)) return;
+    sec.qs.forEach(q=>{
+      const a=state.answers[q.id];
+      if(q.type==="multi") fields.push({label:q.label, value:Array.isArray(a)?a.join("; "):""});
+      else fields.push({label:q.label, value:a!=null?String(a):""});
+    });
+  });
+  return { tipo:CONFIG.TIPO, fields };
+}
+
+async function submit(){
+  const secIndex = state.path[state.idx]; const sec = SECTIONS[secIndex];
+  app.querySelector("#errline").classList.remove("show");
+  if(!validate(sec)) return;
+  const btn=app.querySelector("#next"); btn.disabled=true; btn.innerHTML="Enviando… ";
+  if(!CONFIG.SCRIPT_URL || CONFIG.SCRIPT_URL.startsWith("PEGA")){ setTimeout(renderDone,500); return; }
+  try{
+    await fetch(CONFIG.SCRIPT_URL,{ method:"POST", mode:"no-cors", headers:{"Content-Type":"text/plain;charset=utf-8"}, body:JSON.stringify(buildPayload()) });
+    renderDone();
+  }catch(err){
+    const e=app.querySelector("#errline"); e.textContent="No pudimos enviar el reporte. Revisa tu conexión e inténtalo de nuevo."; e.classList.add("show");
+    btn.disabled=false; btn.innerHTML=`Reintentar ${ICONS.send}`;
+  }
+}
+
+function renderDone(){
+  app.innerHTML=`<div class="done">
+    <div class="seal">${ICONS.check}</div>
+    <h2>Reporte registrado</h2>
+    <p>Gracias por documentar el seguimiento de convivencia de este curso. Si marcó situaciones graves, recuerde activar la Ruta de Atención Integral por el conducto institucional.</p>
+    <button class="btn next" style="max-width:320px;margin:0 auto" id="again">Registrar otro curso ${ICONS.arrow}</button>
+  </div>`;
+  app.querySelector("#again").addEventListener("click",()=>{ renderLanding(); });
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+renderLanding();
+</script>
+</body>
+</html>
